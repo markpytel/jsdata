@@ -11,13 +11,22 @@ app.config(function($stateProvider) {
 				return User.findAll()
 			}
 		}
+	}).state('createPost', {
+		url: '/post/',
+		templateUrl: 'js/create/create.html'
+		//controller: 'PostCtrl'
+
 	})
 });
 
 // add necessary dependencies 
-app.controller('PostCtrl', function() {
-
-
+app.controller('PostCtrl', function($scope, $stateParams, Post) {
+	var _id = $stateParams.postId;
+	//$scope.post = $stateParams;
+	console.log($stateParams);
+	Post.find(_id).then(function(post){
+		$scope.post = post;
+	})
 	/* 1. FIND POST
 		use state params to retrieve the post id and attach post object to scope 
 		on controller load 
